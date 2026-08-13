@@ -1,0 +1,50 @@
+Host-Rechner (Hypervisor: VirtualBox / Hyper-V / Proxmox)
+│
+├── VM1: Linux-Server → Samba AD DC → "ankara.local" (Unternehmen A)
+│   │
+│   ├── [ERLEDIGT] Ubuntu Server installiert, Samba AD DC provisioniert
+│   ├── [ERLEDIGT] Hostname gesetzt: dc1.ankara.local
+│   ├── [ERLEDIGT] DNS-Backend: SAMBA_INTERNAL, Interface-Bindung konfiguriert
+│   ├── [ERLEDIGT] Dienst samba-ad-dc aktiv über systemd
+│   ├── [ERLEDIGT] Kerberos-Konfiguration (krb5.conf) bereitgestellt
+│   ├── [ERLEDIGT] systemd-resolved für ankara.local konfiguriert
+│   ├── [ERLEDIGT] Verifiziert: A-Record, SRV-Records, dbcheck (0 Fehler), kinit-Test
+│   ├── [ERLEDIGT] Passwortrichtlinien gesetzt (61 Tage domänenweit, 365 Tage Admin)
+│   ├── [ERLEDIGT] Benutzer erstellt: Client1, Client2
+│   ├── [ERLEDIGT] Gruppen erstellt: IT_Team, Office_Team
+│   ├── [ERLEDIGT] OUs erstellt: Staff, Office
+│   ├── [ERLEDIGT] Tailscale installiert (Split-Tunnel-VPN bereit)
+│   ├── [IN BEARBEITUNG] Split-DNS-Auflösungsproblem
+│   ├── [OFFEN] Bestätigung des Windows-Client-Domain-Joins
+│   ├── [OFFEN] Samba-Dateifreigabe mit NTFS-/Freigabeberechtigungen
+│   └── [OFFEN] Domänenanmeldungstest mit Client1 / Client2
+│
+├── VM2: Windows-Server → AD DS → "istanbul.local" (Unternehmen B)
+│   │
+│   ├── [OFFEN] Windows Server Evaluation ISO herunterladen
+│   ├── [OFFEN] Zweite VM erstellen, RAM/CPU zuweisen
+│   ├── [OFFEN] Windows Server installieren, statische IP zuweisen
+│   ├── [OFFEN] AD DS-Rolle hinzufügen
+│   ├── [OFFEN] Gesamtstruktur istanbul.local provisionieren
+│   ├── [OFFEN] DNS-Dienst konfigurieren
+│   ├── [OFFEN] Benutzer/Gruppen/OUs erstellen (Client3, Client4, Sales_Team)
+│   └── [OFFEN] Dateifreigabeordner erstellen
+│
+└── Forest Trust (bidirektional) ↔ ankara.local ⟷ istanbul.local
+    │
+    ├── [OFFEN] Conditional DNS Forwarder einrichten
+    ├── [OFFEN] Bidirektionale Vertrauensstellung herstellen
+    ├── [OFFEN] Vertrauensstellung überprüfen (netdom trust /verify)
+    ├── [OFFEN] Erforderliche Ports bestätigen (53, 88, 389, 135)
+    │
+    └── Regionalleiter-Konto → SSO-Dateizugriff über beide Forests
+        ├── [OFFEN] Konto "Regionalleiter" erstellen
+        ├── [OFFEN] Cross-Domain-NTFS-/Freigabeberechtigungen vergeben
+        └── [OFFEN] SSO-Zugriff auf beide Domains testen
+
+GitHub-Dokumentation
+├── [ERLEDIGT] README.md (Deutsch) — Provisionierung, DNS, Benutzer, Tailscale, bekannte Probleme
+├── [ERLEDIGT] Architekturdiagramm (farbig, englisch beschriftet)
+├── [OFFEN] VM2- + Forest-Trust-Abschnitte ergänzen
+├── [OFFEN] Cross-Domain-SSO-Szenario ergänzen
+└── [OFFEN] Interview-"Elevator Pitch" vorbereiten
