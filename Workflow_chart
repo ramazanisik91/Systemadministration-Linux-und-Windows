@@ -1,0 +1,50 @@
+Host Machine (Hypervisor: VirtualBox / Hyper-V / Proxmox)
+│
+├── VM1: Linux Server → Samba AD DC → "ankara.local" (Company A)
+│   │
+│   ├── [DONE] Ubuntu Server installed, Samba AD DC provisioned
+│   ├── [DONE] Hostname set: dc1.ankara.local
+│   ├── [DONE] DNS backend: SAMBA_INTERNAL, interface binding configured
+│   ├── [DONE] samba-ad-dc service active via systemd
+│   ├── [DONE] Kerberos config (krb5.conf) deployed
+│   ├── [DONE] systemd-resolved configured for ankara.local
+│   ├── [DONE] Verified: A record, SRV records, dbcheck (0 errors), kinit test
+│   ├── [DONE] Password policies set (61 days domain-wide, 365 days admin)
+│   ├── [DONE] Users created: Client1, Client2
+│   ├── [DONE] Groups created: IT_Team, Office_Team
+│   ├── [DONE] OUs created: Staff, Office
+│   ├── [DONE] Tailscale installed (split-tunnel VPN ready)
+│   ├── [IN PROGRESS] Split DNS resolution issue
+│   ├── [PENDING] Windows client domain join confirmation
+│   ├── [PENDING] Samba file share setup with NTFS/share permissions
+│   └── [PENDING] Domain login test with Client1 / Client2
+│
+├── VM2: Windows Server → AD DS → "istanbul.local" (Company B)
+│   │
+│   ├── [PENDING] Download Windows Server Evaluation ISO
+│   ├── [PENDING] Create second VM, allocate RAM/CPU
+│   ├── [PENDING] Install Windows Server, assign static IP
+│   ├── [PENDING] Add AD DS role
+│   ├── [PENDING] Provision istanbul.local forest
+│   ├── [PENDING] Configure DNS service
+│   ├── [PENDING] Create users/groups/OUs (Client3, Client4, Sales_Team)
+│   └── [PENDING] Create file sharing folder
+│
+└── Forest Trust (Two-way) ↔ ankara.local ⟷ istanbul.local
+    │
+    ├── [PENDING] Set up conditional DNS forwarders
+    ├── [PENDING] Establish two-way forest trust
+    ├── [PENDING] Verify trust (netdom trust /verify)
+    ├── [PENDING] Confirm required ports open (53, 88, 389, 135)
+    │
+    └── Regional Manager Account → SSO File Access Across Both Forests
+        ├── [PENDING] Create "Regional Manager" account
+        ├── [PENDING] Grant cross-domain NTFS/share permissions
+        └── [PENDING] Test SSO access to both domains
+
+GitHub Documentation
+├── [DONE] README.md (German) — provisioning, DNS, users, Tailscale, known issues
+├── [DONE] Architecture diagram (colored, English-labeled)
+├── [PENDING] Add VM2 + Forest Trust sections
+├── [PENDING] Add cross-domain SSO scenario
+└── [PENDING] Prepare interview "elevator pitch"
